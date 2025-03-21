@@ -15,6 +15,8 @@ class FigureAkinator:
         if self.figure:
             print('Ура! Давай узнаем ее площадь!')
 
+            print(self.__dict__)
+
             result = getattr(self, f'get_space_of_{self.figure}')()
 
             print(f'Площадь фигуры: {result}')
