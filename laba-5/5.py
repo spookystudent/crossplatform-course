@@ -1,3 +1,3 @@
 import os
 
-os.rename('./1.txt','./11.txt')
+os.rename('./11.txt','./1.txt')

@@ -1,4 +1,4 @@
-file = open('./3.txt', 'r')
+file = open('./4.txt', 'w')
 
 file.write('Hello\nWorld!')
 
