@@ -10,7 +10,7 @@ for i in A: print(' '.join(list(map(str, i))))
 
 # Пример 1. Подсчет суммы элементов матрицы
 s = 0
-for i in A:
+for i in range(len(A)):
     for j in range(len(A[i])):
         s += A[i][j]
 
