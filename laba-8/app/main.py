@@ -13,7 +13,7 @@ from PyQt5.QtGui import QDesktopServices
 # Импортируем наши формы
 from login_form import LoginForm
 from register_form import RegisterForm
-from main_window import MainWindow
+
 
 BASE_API_URL = "http://127.0.0.1:5000/"
 

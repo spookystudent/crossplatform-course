@@ -42,5 +42,5 @@ class MainWindow(QWidget):
         self.setLayout(layout)
 
     def set_user_info(self, username):
-        self.welcome_label.setText(f"Добро пожаловать, {username}!")
+        self.welcome_label.setText("Добро пожаловать!")
         self.user_info_label.setText(f"Вы вошли как: {username}")
