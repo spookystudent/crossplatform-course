@@ -15,7 +15,7 @@ class AuthApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Авторизация")
-        self.setFixedSize(640, 140)
+        # self.setFixedSize(640, 140)
 
         self.main_window = MainWindow(self)
         self.login_form = LoginForm(self)
@@ -26,7 +26,6 @@ class AuthApp(QMainWindow):
 
 
     def init_widgets(self):
-        """Инициализация UI-форм"""
         self.stacked_widget = QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
