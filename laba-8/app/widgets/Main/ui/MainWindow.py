@@ -110,6 +110,7 @@ class MainWindow(QWidget):
             self.num1_denominator.show()
             self.num1_layout.itemAt(2).widget().show()
 
+
     def update_num2_fields(self):
         if self.num2_type.currentText() == "Десятичная дробь":
             self.num2_denominator.hide()
@@ -118,33 +119,95 @@ class MainWindow(QWidget):
             self.num2_denominator.show()
             self.num2_layout.itemAt(2).widget().show()
 
+
     def compare_fractions(self):
         try:
-            # Получаем первое число
+            if hasattr(self, 'result_container'):
+                self.result_container.deleteLater()
+            
+            self.result_container = QWidget()
+            result_layout = QHBoxLayout()
+            result_layout.setAlignment(Qt.AlignCenter)
+            self.result_container.setLayout(result_layout)
+            
             if self.num1_type.currentText() == "Десятичная дробь":
                 num1 = float(self.num1_numerator.text())
+                num1_widget = QLabel(str(num1))
+                num1_widget.setAlignment(Qt.AlignCenter)
+                result_layout.addWidget(num1_widget)
             else:
-                num1 = Fraction(
-                    int(self.num1_numerator.text()), int(self.num1_denominator.text())
-                )
+                numerator1 = int(self.num1_numerator.text())
+                denominator1 = int(self.num1_denominator.text())
+                num1 = Fraction(numerator1, denominator1)
+                
+                num1_layout = QVBoxLayout()
+                num1_layout.setSpacing(0)
+                
+                num_label = QLabel(str(numerator1))
+                num_label.setAlignment(Qt.AlignCenter)
+                line_label = QLabel("—")
+                line_label.setAlignment(Qt.AlignCenter)
+                denom_label = QLabel(str(denominator1))
+                denom_label.setAlignment(Qt.AlignCenter)
+                
+                num1_layout.addWidget(num_label)
+                num1_layout.addWidget(line_label)
+                num1_layout.addWidget(denom_label)
+                
+                num1_widget = QWidget()
+                num1_widget.setLayout(num1_layout)
+                result_layout.addWidget(num1_widget)
 
-            # Получаем второе число
             if self.num2_type.currentText() == "Десятичная дробь":
                 num2 = float(self.num2_numerator.text())
+                num2_widget = QLabel(str(num2))
+                num2_widget.setAlignment(Qt.AlignCenter)
             else:
-                num2 = Fraction(
-                    int(self.num2_numerator.text()), int(self.num2_denominator.text())
-                )
+                numerator2 = int(self.num2_numerator.text())
+                denominator2 = int(self.num2_denominator.text())
+                num2 = Fraction(numerator2, denominator2)
+                
+                num2_layout = QVBoxLayout()
+                num2_layout.setSpacing(0)
+                
+                num_label = QLabel(str(numerator2))
+                num_label.setAlignment(Qt.AlignCenter)
+                line_label = QLabel("—")
+                line_label.setAlignment(Qt.AlignCenter)
+                denom_label = QLabel(str(denominator2))
+                denom_label.setAlignment(Qt.AlignCenter)
+                
+                num2_layout.addWidget(num_label)
+                num2_layout.addWidget(line_label)
+                num2_layout.addWidget(denom_label)
+                
+                num2_widget = QWidget()
+                num2_widget.setLayout(num2_layout)
 
-            # Сравниваем
             if num1 < num2:
-                result = f"{num1} < {num2}"
+                comparison = "<"
             elif num1 > num2:
-                result = f"{num1} > {num2}"
+                comparison = ">"
             else:
-                result = f"{num1} = {num2}"
+                comparison = "="
+            
 
-            self.result_label.setText(result)
+            comparison_label = QLabel(comparison)
+            comparison_label.setAlignment(Qt.AlignCenter)
+            comparison_label.setStyleSheet("font-size: 16px; margin: 0 10px;")
+            
+            result_layout.addWidget(comparison_label)
+            result_layout.addWidget(num2_widget)
+            
+
+            if hasattr(self, 'result_label'):
+                self.layout().replaceWidget(self.result_label, self.result_container)
+                self.result_label.deleteLater()
+            else:
+                self.layout().addWidget(self.result_container)
+            
+
+            self.result_label = self.result_container
 
         except ValueError:
             QMessageBox.warning(self, "Ошибка", "Пожалуйста, введите корректные числа")
